@@ -26,8 +26,10 @@ const getInitialValidation = () => ({
   agreement: "",
 });
 
-const enLang = lang_data.en;
-const espLang = lang_data.esp;
+// Commenting out the previous code here as a reference. There's a better way to do this, 
+                                                  // from the solution video; refactoring.
+// const enLang = lang_data.en;
+// const espLang = lang_data.esp;
 
 export default function App({ lang = "en" }) {
   // ❗ IMPORTANT
@@ -40,6 +42,8 @@ export default function App({ lang = "en" }) {
   const [success, setSuccess] = useState();
   const [failure, setFailure] = useState();
   const [submitAllowed, setSubmitAllowed] = useState(false);
+
+  const textLang = lang_data[language];
 
   useEffect(() => {
     schemas.userSchema.isValid(values).then(setSubmitAllowed);
@@ -81,9 +85,7 @@ export default function App({ lang = "en" }) {
   return (
     <div>
       <h2>
-        {language === "en"
-          ? enLang.TEXT_HEADING_CREATE_ACCOUNT
-          : espLang.TEXT_HEADING_CREATE_ACCOUNT}
+        {textLang.TEXT_HEADING_CREATE_ACCOUNT}
         <span onClick={() => setLanguage(language === "en" ? "esp" : "en")}>
           {language === "en" ? " 🇺🇸" : " 🇪🇸"}
         </span>
@@ -94,7 +96,7 @@ export default function App({ lang = "en" }) {
 
         <div className="inputGroup">
           <label htmlFor="username">
-            {language === "en" ? enLang.LABEL_USERNAME : espLang.LABEL_USERNAME}
+            {textLang.LABEL_USERNAME}
           </label>
           <input
             id="username"
@@ -102,11 +104,7 @@ export default function App({ lang = "en" }) {
             onChange={onChange}
             value={values.username}
             type="text"
-            placeholder={
-              language === "en"
-                ? enLang.PLACEHOLDER_USERNAME
-                : espLang.PLACEHOLDER_USERNAME
-            }
+            placeholder={textLang.PLACEHOLDER_USERNAME}
           />
           {errors.username && (
             <div className="validation">{errors.username}</div>
@@ -116,7 +114,7 @@ export default function App({ lang = "en" }) {
         <div className="inputGroup">
           <fieldset>
             <legend>
-              {language === "en" ? enLang.TEXT_FAV_LANG : espLang.TEXT_FAV_LANG}
+              {textLang.TEXT_FAV_LANG}
             </legend>
             <label>
               <input
@@ -126,9 +124,7 @@ export default function App({ lang = "en" }) {
                 value="javascript"
                 checked={values.favLanguage == "javascript"}
               />
-              {language === "en"
-                ? enLang.TEXT_FAV_LANG_JS
-                : espLang.TEXT_FAV_LANG_JS}
+              {textLang.TEXT_FAV_LANG_JS}
             </label>
             <label>
               <input
@@ -138,9 +134,7 @@ export default function App({ lang = "en" }) {
                 value="rust"
                 checked={values.favLanguage == "rust"}
               />
-              {language === "en"
-                ? enLang.TEXT_FAV_LANG_RUST
-                : espLang.TEXT_FAV_LANG_RUST}
+              {textLang.TEXT_FAV_LANG_RUST}
             </label>
           </fieldset>
           {errors.favLanguage && (
@@ -150,7 +144,7 @@ export default function App({ lang = "en" }) {
 
         <div className="inputGroup">
           <label htmlFor="favFood">
-            {language === "en" ? enLang.LABEL_FAV_FOOD : espLang.LABEL_FAV_FOOD}
+            {textLang.LABEL_FAV_FOOD}
           </label>
           <select
             id="favFood"
@@ -159,24 +153,16 @@ export default function App({ lang = "en" }) {
             onChange={onChange}
           >
             <option value="">
-              {language === "en"
-                ? enLang.TEXT_OPT_FAV_FOOD_1
-                : espLang.TEXT_OPT_FAV_FOOD_1}
+              {textLang.TEXT_OPT_FAV_FOOD_1}
             </option>
             <option value="pizza">
-              {language === "en"
-                ? enLang.TEXT_OPT_FAV_FOOD_2
-                : espLang.TEXT_OPT_FAV_FOOD_2}
+              {textLang.TEXT_OPT_FAV_FOOD_2}
             </option>
             <option value="spaghetti">
-              {language === "en"
-                ? enLang.TEXT_OPT_FAV_FOOD_3
-                : espLang.TEXT_OPT_FAV_FOOD_3}
+              {textLang.TEXT_OPT_FAV_FOOD_3}
             </option>
             <option value="broccoli">
-              {language === "en"
-                ? enLang.TEXT_OPT_FAV_FOOD_4
-                : espLang.TEXT_OPT_FAV_FOOD_4}
+              {textLang.TEXT_OPT_FAV_FOOD_4}
             </option>
           </select>
           {errors.favFood && <div className="validation">{errors.favFood}</div>}
@@ -191,9 +177,7 @@ export default function App({ lang = "en" }) {
               checked={values.agreement}
               onChange={onChange}
             />
-            {language === "en"
-              ? enLang.LABEL_ACCEPT_TERMS
-              : espLang.LABEL_ACCEPT_TERMS}
+            {textLang.LABEL_ACCEPT_TERMS}
           </label>
           {errors.agreement && (
             <div className="validation">{errors.agreement}</div>
@@ -204,7 +188,7 @@ export default function App({ lang = "en" }) {
           <input
             type="submit"
             disabled={!submitAllowed}
-            value={language === "en" ? enLang.TEXT_SUBMIT : espLang.TEXT_SUBMIT}
+            value={textLang.TEXT_SUBMIT}
           />
         </div>
       </form>
